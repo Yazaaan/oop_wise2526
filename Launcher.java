@@ -20,22 +20,31 @@ import java.awt.Label;
 public class Launcher extends JFrame{
     public Launcher(){
         // Fenstereigenschaften
-        setTitle("Kreisspiel Launcher");
+        setTitle("Schalter-Spiel-Launcher");
         setSize(400, 200);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // Inhalt
-        JPanel panel_root = new JPanel();
-        panel_root.setLayout(new GridLayout(2, 2, 20, 20));
-        panel_root.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20)); // 20px Padding an allen Seiten (oben, links, unten, rechts)
-        
-        JButton btn_newGame = new JButton("Neues Spiel starten");
-        JButton btn_quit = new JButton("Beenden");
-        
         // Zahleneingabe mit JSpinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(5, 3, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
         JSpinner num_difficulty = new JSpinner(spinnerModel);
+        
+        // "Neues Spiel" Button
+        JButton btn_newGame = new JButton("Neues Spiel starten");
+        btn_newGame.addActionListener(e -> startNewGame((Integer)num_difficulty.getValue()));
+        
+        // Beenden Button
+        JButton btn_quit = new JButton("Beenden");
+        btn_quit.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e){
+               System.exit(0);
+           }
+        });
+        
+        // Panel beschreiben und Elemente einfügen
+        JPanel panel_root = new JPanel();
+        panel_root.setLayout(new GridLayout(2, 2, 20, 20));
+        panel_root.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20)); // 20px Padding an allen Seiten (oben, links, unten, rechts)
         
         panel_root.add(new JLabel("Anzahl Schalter"));
         panel_root.add(num_difficulty);
@@ -45,5 +54,13 @@ public class Launcher extends JFrame{
         
         this.add(panel_root);
         setVisible(true);
+    }
+    
+    private void startNewGame(int diff){
+        System.out.println("Neues Spiel mit " + diff + " Schaltern wird gestartet...");
+        
+        // --- SPIEL STARTEN ---
+        
+        dispose();
     }
 }
