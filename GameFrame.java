@@ -66,11 +66,14 @@ public class GameFrame extends JFrame{
         // Panel beschreiben und Elemente einfügen
         JPanel panel_root = new JPanel();
         panel_root.setLayout(new BorderLayout());
+        
+        // Zügezähler
         Label lbl_turns = new Label("Züge: 0");
         lbl_turns.setAlignment(Label.RIGHT);
         panel_root.add(lbl_turns, BorderLayout.NORTH);
         
-
+        // Spielfläche
+        panel_root.add(new GamePanel(this), BorderLayout.CENTER);
         this.add(panel_root);
         setVisible(true);
     }
