@@ -74,6 +74,8 @@ public class GameFrame extends JFrame{
         
         // Spielfläche
         panel_root.add(new GamePanel(this), BorderLayout.CENTER);
+        
+        
         this.add(panel_root);
         setVisible(true);
     }
