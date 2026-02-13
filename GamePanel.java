@@ -16,6 +16,6 @@ public class GamePanel extends JPanel{
     {
         this.frame = frame;
 
-        this.frame.add(new JLabel("Spielfeld"));
+        this.add(new JLabel("Spielfeld"));
     }
 }
