@@ -7,7 +7,7 @@ import java.awt.BasicStroke;
 // Die Klasse die einen Kreis beschreibt
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
 
-public class Circle{
+public class Circle {
     private Circle previous, next;
     private int x, y, r;
     private boolean activated;
