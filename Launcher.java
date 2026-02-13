@@ -24,6 +24,7 @@ public class Launcher extends JFrame{
         setSize(400, 200);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         
         // Zahleneingabe mit JSpinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(5, 3, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
@@ -56,10 +57,10 @@ public class Launcher extends JFrame{
         setVisible(true);
     }
     
-    private void startNewGame(int diff){
-        System.out.println("Neues Spiel mit " + diff + " Schaltern wird gestartet...");
+    private void startNewGame(int diffi){
+        System.out.println("Neues Spiel mit " + diffi + " Schaltern wird gestartet...");
         
-        // --- SPIEL STARTEN ---
+        GameFrame game = new GameFrame(diffi);
         
         dispose();
     }

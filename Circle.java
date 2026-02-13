@@ -12,8 +12,8 @@ public class Circle{
     private int x, y, r;
     private boolean activated;
     Graphics g;
-    Color color_active = new Color(127, 101, 0);
-    Color color_inactive = new Color(255, 203, 0);
+    Color color_active = new Color(255, 203, 0);
+    Color color_inactive = new Color(127, 101, 0);
     private BasicStroke stroke = new BasicStroke(
             2.0f,
             BasicStroke.CAP_BUTT,
