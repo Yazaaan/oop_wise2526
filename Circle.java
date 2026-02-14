@@ -19,7 +19,7 @@ public class Circle extends DrawableObject{
             BasicStroke.JOIN_MITER,
             10.0f, new float[]{10.0f}, 0.0f
         );
-    private BasicStroke stroke_solid = new BasicStroke(20.0f);
+    private BasicStroke stroke_solid = new BasicStroke(10.0f);
 
     public Circle(int x, int y, int r){
         previous = this;
