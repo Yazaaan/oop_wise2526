@@ -23,14 +23,16 @@ public class ActionCircle extends DrawableObject{
         );
     private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
     private GamePanel panel;
+    private boolean isRoot;
 
-    public ActionCircle(int x, int y, int r, GamePanel panel){
+    public ActionCircle(int x, int y, int r, boolean isRoot, GamePanel panel){
         previous = this;
         next = this;
         this.x = x;
         this.y = y;
         this.r = r;
         activated = false;
+        this.isRoot = isRoot;
         this.panel = panel;
     }
 
@@ -62,6 +64,9 @@ public class ActionCircle extends DrawableObject{
         if(distance <= r + strokeWidth/2){
             stateSwitch();
             panel.repaint();
+        }
+        else if(!next.isRoot){
+            next.checkPos(mouseX, mouseY);
         }
     }
 }
