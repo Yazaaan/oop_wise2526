@@ -17,20 +17,20 @@ public class GamePanel extends JPanel{
     {
         this.frame = frame;
 
-        this.add(new JLabel("Spielfeld"));
-
-
         int angleDiff = 360/num;
 
+        //Circle rootCircle = new Circle(100, 100, 50);
+        //objs[0] = rootCircle;
+        
         for(int i = 0; i < num; i++){
             Circle newCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
             //Circle newCircle = new Circle(100+ i*100, 100, 50);
             objs[i] = newCircle;
 
         }
-
-        //Circle rootCircle = new Circle(100, 100, 50);
-        //objs[0] = rootCircle;
+        
+        MouseAdapter mouse = new MouseAdapter();
+        addMouseListener(mouse);
 
         //repaint();
 
