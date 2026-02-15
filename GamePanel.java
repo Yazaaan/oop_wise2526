@@ -10,28 +10,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class GamePanel extends JPanel{
-    private GameFrame frame;
     DrawableObject[] objs = new DrawableObject[100];
+    private Ring ring;
+    private ActionCircle rootCircle;
+    private int num;
 
-    public GamePanel(int num, GameFrame frame)
+    public GamePanel(int num)
     {
-        this.frame = frame;
-
+        // this.frame = frame;
+        this.num = num;
+        
         int angleDiff = 360/num;
 
-        objs[0] = new Ring(250, 250, 150);
+        int ringRadius = 150;
+        int actionRadius = 20;
+        ring = new Ring(250, 250, ringRadius);
         // Circle rootCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
-        ActionCircle rootCircle = new ActionCircle(250, 250, 30, this);
-        objs[1] = rootCircle;
+        rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, this);
         
-        
-        
-        // for(int i = 1; i < num; i++){
-            // Circle newCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
-            // //Circle newCircle = new Circle(100+ i*100, 100, 50);
-            // objs[i] = newCircle;
-
-        // }
+        for(int i = 1; i < num; i++){
+            rootCircle.insert(new ActionCircle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, this));
+        }
         
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
@@ -44,7 +43,16 @@ public class GamePanel extends JPanel{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        for(DrawableObject o : objs) if(o != null) o.paint(g);
+        
+        ring.paint(g);
+        
+        ActionCircle current = rootCircle;
+        ActionCircle next;
+        for(int i = 0; i < num; i++){
+            current.paint(g);
+            next = current;
+            current = current.next;
+        }
 
     }
 }

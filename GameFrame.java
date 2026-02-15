@@ -73,7 +73,7 @@ public class GameFrame extends JFrame{
         panel_root.add(lbl_turns, BorderLayout.NORTH);
         
         // Spielfläche
-        panel_root.add(new GamePanel(num, this), BorderLayout.CENTER);
+        panel_root.add(new GamePanel(num), BorderLayout.CENTER);
         
         
         this.add(panel_root);

@@ -9,7 +9,7 @@ import static java.lang.Math.*;
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
 
 public class ActionCircle extends DrawableObject{
-    private ActionCircle previous, next;
+    public ActionCircle previous, next;
     private int x, y, r;
     private int strokeWidth = 10;
     private boolean activated;
@@ -47,7 +47,6 @@ public class ActionCircle extends DrawableObject{
         g2d.drawOval(x-r, y-r, 2*r, 2*r);
         g2d.setColor(activated? color_active : color_inactive);
         g2d.fillOval(x-r, y-r, 2*r, 2*r);
-
     }
 
     public void insert(ActionCircle newCircle){
