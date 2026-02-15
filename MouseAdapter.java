@@ -1,8 +1,8 @@
 public class MouseAdapter extends java.awt.event.MouseAdapter{
-    private Circle rootCircle;
+    private ActionCircle rootCircle;
     
     
-    public MouseAdapter(Circle rootCircle){
+    public MouseAdapter(ActionCircle rootCircle){
         this.rootCircle = rootCircle;
     }
     

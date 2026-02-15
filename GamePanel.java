@@ -19,8 +19,12 @@ public class GamePanel extends JPanel{
 
         int angleDiff = 360/num;
 
-        Circle rootCircle = new Circle(250, 250, 30, this);
-        objs[0] = rootCircle;
+        objs[0] = new Ring(250, 250, 150);
+        // Circle rootCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
+        ActionCircle rootCircle = new ActionCircle(250, 250, 30, this);
+        objs[1] = rootCircle;
+        
+        
         
         // for(int i = 1; i < num; i++){
             // Circle newCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
