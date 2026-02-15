@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
+import static java.lang.Math.*;
 
 // Die Klasse die einen Kreis beschreibt
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
@@ -10,30 +11,33 @@ import java.awt.BasicStroke;
 public class Circle extends DrawableObject{
     private Circle previous, next;
     private int x, y, r;
+    private int strokeWidth = 10;
     private boolean activated;
-    Color color_active = new Color(255, 203, 0);
-    Color color_inactive = new Color(127, 101, 0);
+    private Color color_active = new Color(111, 220, 17);
+    private Color color_inactive = new Color(127, 17, 220);
     private BasicStroke stroke_dashed = new BasicStroke(
             2.0f,
             BasicStroke.CAP_BUTT,
             BasicStroke.JOIN_MITER,
             10.0f, new float[]{10.0f}, 0.0f
         );
-    private BasicStroke stroke_solid = new BasicStroke(10.0f);
+    private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
+    private GamePanel panel;
 
-    public Circle(int x, int y, int r){
+    public Circle(int x, int y, int r, GamePanel panel){
         previous = this;
         next = this;
         this.x = x;
         this.y = y;
         this.r = r;
         activated = false;
+        this.panel = panel;
     }
 
     public void stateSwitch(){
         activated = !activated; // Eigenen Zusantd wechseln
-        previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
-        next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
+        if (previous != this) previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
+        if (next != this) next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
     }
 
     public void paint(Graphics g){
@@ -43,7 +47,7 @@ public class Circle extends DrawableObject{
         g2d.drawOval(x-r, y-r, 2*r, 2*r);
         g2d.setColor(activated? color_active : color_inactive);
         g2d.fillOval(x-r, y-r, 2*r, 2*r);
-        
+
     }
 
     public void insert(Circle newCircle){
@@ -51,5 +55,15 @@ public class Circle extends DrawableObject{
         next.previous = newCircle;
         next = newCircle;
         newCircle.previous = this;
+    }
+
+    public void checkPos(int mouseX, int mouseY){
+        double distance = sqrt(pow(mouseX - x, 2) + pow(mouseY - y, 2));    // Abstand von Maus zu Kreis
+        // System.out.println(String.format("Abstand: %s", distance));
+        if(distance <= r + strokeWidth/2){
+            System.out.println(String.format("Liegt drinne!!!!! WUUUHUUUUU:"));
+            stateSwitch();
+            panel.repaint();
+        }
     }
 }
