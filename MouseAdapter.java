@@ -8,7 +8,12 @@ public class MouseAdapter extends java.awt.event.MouseAdapter{
     
     public void mousePressed(java.awt.event.MouseEvent event){
         if( javax.swing.SwingUtilities.isLeftMouseButton(event)){
-            rootCircle.checkPos(event.getX(), event.getY());
+            rootCircle.checkPos(event.getX(), event.getY(), true);
         }
+    }
+    
+    public void mouseMoved(java.awt.event.MouseEvent event)
+    {
+        rootCircle.checkPos(event.getX(), event.getY(), false);
     }
 }

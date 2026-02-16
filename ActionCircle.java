@@ -10,14 +10,14 @@ import javax.swing.JLabel;
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
 
 public class ActionCircle extends DrawableObject{
-    public ActionCircle previous, next;
+    private ActionCircle previous, next;
     private int x, y, r;
     private int strokeWidth = 10;
     private boolean activated;
     private Color color_active = new Color(111, 220, 17);
     private Color color_inactive = new Color(127, 17, 220);
     private BasicStroke stroke_dashed = new BasicStroke(
-            2.0f,
+            strokeWidth,
             BasicStroke.CAP_BUTT,
             BasicStroke.JOIN_MITER,
             10.0f, new float[]{10.0f}, 0.0f
@@ -29,6 +29,8 @@ public class ActionCircle extends DrawableObject{
     private static boolean rootExsists;
     private static int turns;
     private static int numActivated;
+    private boolean mouseHover;
+    private boolean isCurrentlyOver;
 
     public ActionCircle(int x, int y, int r, GamePanel panel, JLabel lbl_turns){
         previous = this;
@@ -36,7 +38,7 @@ public class ActionCircle extends DrawableObject{
         this.x = x;
         this.y = y;
         this.r = r;
-        activated = false;        this.panel = panel;
+        this.panel = panel;
         this.lbl_turns = lbl_turns;
         if(!rootExsists){
             rootExsists = true;
@@ -45,6 +47,7 @@ public class ActionCircle extends DrawableObject{
     }
 
     public void stateSwitch(){
+        lbl_turns.setText("Züge: " + ++turns);
         activated = !activated; // Eigenen Zusantd wechseln
         numActivated += activated? 1 : -1;
 
@@ -58,7 +61,7 @@ public class ActionCircle extends DrawableObject{
         }
 
         if(panel.num == numActivated){
-            panel.repaint();
+            mouseHover = false;
             System.out.println("Gewonnen!");
             panel.gameWon(turns);
         }
@@ -66,12 +69,12 @@ public class ActionCircle extends DrawableObject{
 
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(stroke_solid);
+        g2d.setStroke(mouseHover? stroke_dashed : stroke_solid);
         g2d.setColor(Color.BLACK);
         g2d.drawOval(x-r, y-r, 2*r, 2*r);
         g2d.setColor(activated? color_active : color_inactive);
         g2d.fillOval(x-r, y-r, 2*r, 2*r);
-        
+
         if(!next.isRoot){
             next.paint(g);
         }
@@ -84,17 +87,28 @@ public class ActionCircle extends DrawableObject{
         newCircle.previous = this;
     }
 
-    public void checkPos(int mouseX, int mouseY){
-        double distance = sqrt(pow(mouseX - x, 2) + pow(mouseY - y, 2));    // Abstand von Maus zu Kreis
-        // System.out.println(String.format("Abstand: %s", distance));
+    public void checkPos(int mouseX, int mouseY, boolean click){
+        // Eigene Distanz berechnen
+        double distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
 
-        if(distance <= r + strokeWidth/2){
-            lbl_turns.setText("Züge: " + ++turns);
+        // Status für DIESEN Kreis setzen
+        isCurrentlyOver = (distance < r + strokeWidth / 2);
+
+        // Nur repainten, wenn sich der Status tatsächlich geändert hat (Performance)
+        if (mouseHover != isCurrentlyOver) {
+            mouseHover = isCurrentlyOver;
+            panel.repaint();
+        }
+
+        // Klick-Logik ausführen
+        if (isCurrentlyOver && click) {
             stateSwitch();
             panel.repaint();
         }
-        else if(!next.isRoot){
-            next.checkPos(mouseX, mouseY);
+        
+        // Den Aufruf an den nächsten Kreis weitergeben
+        if (!next.isRoot) {
+            next.checkPos(mouseX, mouseY, click);
         }
     }
 

@@ -18,7 +18,6 @@ public class GamePanel extends JPanel{
 
     public GamePanel(int num, GameFrame frame, JLabel lbl_turns)
     {
-        // this.frame = frame;
         this.num = num;
         this.frame = frame;
         
@@ -36,6 +35,7 @@ public class GamePanel extends JPanel{
         
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
+        addMouseMotionListener(mouse);
 
     }
 
@@ -48,6 +48,7 @@ public class GamePanel extends JPanel{
     }
     
     public void gameWon(int turns){
+        repaint();
         frame.gameWonDialog(num, turns);
     }
 }
