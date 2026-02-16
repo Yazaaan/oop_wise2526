@@ -44,7 +44,7 @@ public class ActionCircle extends DrawableObject{
     public void stateSwitch(){
         activated = !activated; // Eigenen Zusantd wechseln
         numActivated += activated? 1 : -1;
-        
+
         if (previous != this){
             previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
             numActivated += previous.activated? 1 : -1;
@@ -53,10 +53,11 @@ public class ActionCircle extends DrawableObject{
             next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
             numActivated += next.activated? 1 : -1;
         }
-        
-        
+
         if(panel.num == numActivated){
+            panel.repaint();
             System.out.println("Gewonnen!");
+            panel.gameWon(turns);
         }
     }
 
@@ -79,7 +80,7 @@ public class ActionCircle extends DrawableObject{
     public void checkPos(int mouseX, int mouseY){
         double distance = sqrt(pow(mouseX - x, 2) + pow(mouseY - y, 2));    // Abstand von Maus zu Kreis
         // System.out.println(String.format("Abstand: %s", distance));
-        
+
         if(distance <= r + strokeWidth/2){
             lbl_turns.setText("Züge: " + ++turns);
             stateSwitch();
@@ -88,5 +89,10 @@ public class ActionCircle extends DrawableObject{
         else if(!next.isRoot){
             next.checkPos(mouseX, mouseY);
         }
+    }
+
+    public void reset(){
+        turns = 0;
+        numActivated = 0;
     }
 }

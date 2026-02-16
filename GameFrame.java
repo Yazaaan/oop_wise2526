@@ -33,51 +33,68 @@ public class GameFrame extends JFrame{
 
         JMenu menueDatei= new JMenu("Einstellungen");
         menuezeile.add(menueDatei);        
-        
-        
+
         // Hilfe Eintrag
         JMenuItem menueHelp = new JMenuItem("Bitte helfen Sie mir...");
         menueDatei.add(menueHelp);
         menueHelp.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               JOptionPane.showMessageDialog(null, "Drücken Sie die Schalter (Kreise) so, dass alle gelb leuchten!\nDurch Drücken auf einen Kreis ändern dieser selber und die beiden Nachbarn ihren Zustand.\nSind sie aus gewesen, sind sie danach an; waren sie an, so sind sie dann aus.", "Hilfe", JOptionPane.QUESTION_MESSAGE);
-           }
-        });
-        
+                public void actionPerformed(ActionEvent e){
+                    JOptionPane.showMessageDialog(null, "Drücken Sie die Schalter (Kreise) so, dass alle gelb leuchten!\nDurch Drücken auf einen Kreis ändern dieser selber und die beiden Nachbarn ihren Zustand.\nSind sie aus gewesen, sind sie danach an; waren sie an, so sind sie dann aus.", "Hilfe", JOptionPane.QUESTION_MESSAGE);
+                }
+            });
+
         // Neues Spiel Eintrag
         JMenuItem menueNewGame = new JMenuItem("Neues Spiel");
         menueDatei.add(menueNewGame);
         menueNewGame.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               Launcher GameLauncher = new Launcher();
-               dispose();
-           }
-        });
-        
+                public void actionPerformed(ActionEvent e){
+                    Launcher GameLauncher = new Launcher();
+                    dispose();
+                }
+            });
+
         // Beenden Eintrag
         JMenuItem menueBeenden = new JMenuItem("Beenden");
         menueDatei.add(menueBeenden);
         menueBeenden.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               System.exit(0);
-           }
-        });
-        
-        
+                public void actionPerformed(ActionEvent e){
+                    System.exit(0);
+                }
+            });
+
         // Panel beschreiben und Elemente einfügen
         JPanel panel_root = new JPanel();
         panel_root.setLayout(new BorderLayout());
-        
+
         // Zügezähler
         JLabel lbl_turns = new JLabel("Züge: 0");
         lbl_turns.setHorizontalAlignment(SwingConstants.RIGHT);
         panel_root.add(lbl_turns, BorderLayout.NORTH);
-        
+
         // Spielfläche
-        panel_root.add(new GamePanel(num, lbl_turns), BorderLayout.CENTER);
-        
-        
+        panel_root.add(new GamePanel(num, this, lbl_turns), BorderLayout.CENTER);
+
         this.add(panel_root);
         setVisible(true);
+    }
+
+    public void gameWonDialog(int turns){
+
+        Object[] options = {"Neues Spiel", "Beenden"};
+        int decision = JOptionPane.showOptionDialog(this,
+                String.format("Sie haben in %s Zügen gewonnen!\n\nWollen Sie ein neues Spiel starten?", turns),
+                "GEWONNEN",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+
+        switch (decision){
+            case 0:
+                Launcher GameLauncher = new Launcher(); //Ohne Break, damit GameFrame auch geschlossen wird
+            default:
+                dispose();
+        }
     }
 }

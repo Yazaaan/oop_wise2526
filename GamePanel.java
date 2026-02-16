@@ -14,11 +14,13 @@ public class GamePanel extends JPanel{
     private Ring ring;
     private ActionCircle rootCircle;
     public final int num;   // Für alle verfügbar aber nicht manipulierbar
+    private GameFrame frame;
 
-    public GamePanel(int num, JLabel lbl_turns)
+    public GamePanel(int num, GameFrame frame, JLabel lbl_turns)
     {
         // this.frame = frame;
         this.num = num;
+        this.frame = frame;
         
         int angleDiff = 360/num;
 
@@ -26,6 +28,7 @@ public class GamePanel extends JPanel{
         int actionRadius = 20;
         ring = new Ring(250, 250, ringRadius);
         rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, true, this, lbl_turns);
+        rootCircle.reset();
         
         for(int i = 1; i < num; i++){
             rootCircle.insert(new ActionCircle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, false, this, lbl_turns));
@@ -50,5 +53,9 @@ public class GamePanel extends JPanel{
             current = current.next;
         }
 
+    }
+    
+    public void gameWon(int turns){
+        frame.gameWonDialog(turns);
     }
 }
