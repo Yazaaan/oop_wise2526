@@ -27,7 +27,7 @@ public class Launcher extends JFrame{
         setLocationRelativeTo(null);
         
         // Zahleneingabe mit JSpinner
-        SpinnerModel spinnerModel = new SpinnerNumberModel(5, 3, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
+        SpinnerModel spinnerModel = new SpinnerNumberModel(5, 4, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
         JSpinner num_difficulty = new JSpinner(spinnerModel);
         
         // "Neues Spiel" Button
