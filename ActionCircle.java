@@ -26,19 +26,23 @@ public class ActionCircle extends DrawableObject{
     private GamePanel panel;
     private boolean isRoot;
     private JLabel lbl_turns;
+    private static boolean rootExsists;
     private static int turns;
     private static int numActivated;
 
-    public ActionCircle(int x, int y, int r, boolean isRoot, GamePanel panel, JLabel lbl_turns){
+    public ActionCircle(int x, int y, int r, GamePanel panel, JLabel lbl_turns){
         previous = this;
         next = this;
         this.x = x;
         this.y = y;
         this.r = r;
-        activated = false;
-        this.isRoot = isRoot;
-        this.panel = panel;
+        activated = false;        this.panel = panel;
         this.lbl_turns = lbl_turns;
+        if(!rootExsists){
+            System.out.println("root");
+            rootExsists = true;
+            isRoot = true;
+        }
     }
 
     public void stateSwitch(){
@@ -95,7 +99,8 @@ public class ActionCircle extends DrawableObject{
         }
     }
 
-    public void reset(){
+    public static void reset(){
+        rootExsists = false;
         turns = 0;
         numActivated = 0;
     }
