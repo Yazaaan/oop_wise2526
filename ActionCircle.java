@@ -39,7 +39,6 @@ public class ActionCircle extends DrawableObject{
         activated = false;        this.panel = panel;
         this.lbl_turns = lbl_turns;
         if(!rootExsists){
-            System.out.println("root");
             rootExsists = true;
             isRoot = true;
         }
