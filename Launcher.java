@@ -18,7 +18,7 @@ import java.awt.Color;
 import java.awt.Label;
 
 public class Launcher extends JFrame{
-    public Launcher(){
+    public Launcher(int defaultValue){
         // Fenstereigenschaften
         setTitle("Schalter-Spiel-Launcher");
         setSize(400, 200);
@@ -29,6 +29,7 @@ public class Launcher extends JFrame{
         // Zahleneingabe mit JSpinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(5, 4, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
         JSpinner num_difficulty = new JSpinner(spinnerModel);
+        num_difficulty.setValue(new Integer(defaultValue));
         
         // "Neues Spiel" Button
         JButton btn_newGame = new JButton("Neues Spiel starten");

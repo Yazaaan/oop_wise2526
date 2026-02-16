@@ -48,6 +48,6 @@ public class GamePanel extends JPanel{
     }
     
     public void gameWon(int turns){
-        frame.gameWonDialog(turns);
+        frame.gameWonDialog(num, turns);
     }
 }

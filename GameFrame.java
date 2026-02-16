@@ -48,7 +48,7 @@ public class GameFrame extends JFrame{
         menueDatei.add(menueNewGame);
         menueNewGame.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    Launcher GameLauncher = new Launcher();
+                    Launcher GameLauncher = new Launcher(num);
                     dispose();
                 }
             });
@@ -78,7 +78,7 @@ public class GameFrame extends JFrame{
         setVisible(true);
     }
 
-    public void gameWonDialog(int turns){
+    public void gameWonDialog(int num, int turns){
 
         Object[] options = {"Neues Spiel", "Beenden"};
         int decision = JOptionPane.showOptionDialog(this,
@@ -92,7 +92,7 @@ public class GameFrame extends JFrame{
 
         switch (decision){
             case 0:
-                Launcher GameLauncher = new Launcher(); //Ohne Break, damit GameFrame auch geschlossen wird
+                Launcher GameLauncher = new Launcher(num); //Ohne Break, damit GameFrame auch geschlossen wird
             default:
                 dispose();
         }
