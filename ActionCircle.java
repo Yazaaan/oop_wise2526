@@ -20,7 +20,7 @@ public class ActionCircle extends DrawableObject{
             strokeWidth,
             BasicStroke.CAP_BUTT,
             BasicStroke.JOIN_MITER,
-            10.0f, new float[]{10.0f}, 0.0f
+            10.0f, new float[]{10, 7}, 0.0f
         );
     private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
     private GamePanel panel;

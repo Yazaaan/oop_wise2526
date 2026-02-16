@@ -41,9 +41,6 @@ public class GamePanel extends JPanel{
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
-        
-        System.out.println(size());
-
     }
 
     public void paintComponent(Graphics g)
