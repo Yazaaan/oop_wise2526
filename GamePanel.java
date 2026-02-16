@@ -21,21 +21,28 @@ public class GamePanel extends JPanel{
         this.num = num;
         this.frame = frame;
         
+        // Aufbau Spielfeld
         int angleDiff = 360/num;
 
         int ringRadius = 150;
         int actionRadius = 20;
-        ring = new Ring(250, 250, ringRadius);
+        
+        int centerX = 250;
+        int centerY = 220;
+        
+        ring = new Ring(centerX, centerY, ringRadius);
         ActionCircle.reset();
-        rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, this, lbl_turns);
+        rootCircle = new ActionCircle(centerX, centerY-ringRadius, actionRadius, this, lbl_turns);
         
         for(int i = 1; i < num; i++){
-            rootCircle.insert(new ActionCircle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, this, lbl_turns));
+            rootCircle.insert(new ActionCircle(centerX + (int)(ringRadius*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), centerY + (int)(ringRadius*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, this, lbl_turns));
         }
         
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
+        
+        System.out.println(size());
 
     }
 
