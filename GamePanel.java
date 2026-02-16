@@ -15,7 +15,7 @@ public class GamePanel extends JPanel{
     private ActionCircle rootCircle;
     private int num;
 
-    public GamePanel(int num)
+    public GamePanel(int num, JLabel lbl_turns)
     {
         // this.frame = frame;
         this.num = num;
@@ -26,10 +26,10 @@ public class GamePanel extends JPanel{
         int actionRadius = 20;
         ring = new Ring(250, 250, ringRadius);
         // Circle rootCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
-        rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, true, this);
+        rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, true, this, lbl_turns);
         
         for(int i = 1; i < num; i++){
-            rootCircle.insert(new ActionCircle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, false, this));
+            rootCircle.insert(new ActionCircle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, false, this, lbl_turns));
         }
         
         MouseAdapter mouse = new MouseAdapter(rootCircle);

@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
 import static java.lang.Math.*;
+import javax.swing.JLabel;
 
 // Die Klasse die einen Kreis beschreibt
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
@@ -24,8 +25,10 @@ public class ActionCircle extends DrawableObject{
     private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
     private GamePanel panel;
     private boolean isRoot;
+    private JLabel lbl_turns;
+    private static int turns;
 
-    public ActionCircle(int x, int y, int r, boolean isRoot, GamePanel panel){
+    public ActionCircle(int x, int y, int r, boolean isRoot, GamePanel panel, JLabel lbl_turns){
         previous = this;
         next = this;
         this.x = x;
@@ -34,6 +37,7 @@ public class ActionCircle extends DrawableObject{
         activated = false;
         this.isRoot = isRoot;
         this.panel = panel;
+        this.lbl_turns = lbl_turns;
     }
 
     public void stateSwitch(){
@@ -61,7 +65,9 @@ public class ActionCircle extends DrawableObject{
     public void checkPos(int mouseX, int mouseY){
         double distance = sqrt(pow(mouseX - x, 2) + pow(mouseY - y, 2));    // Abstand von Maus zu Kreis
         // System.out.println(String.format("Abstand: %s", distance));
+        
         if(distance <= r + strokeWidth/2){
+            lbl_turns.setText("Züge: " + ++turns);
             stateSwitch();
             panel.repaint();
         }

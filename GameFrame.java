@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridLayout;
@@ -68,12 +69,12 @@ public class GameFrame extends JFrame{
         panel_root.setLayout(new BorderLayout());
         
         // Zügezähler
-        Label lbl_turns = new Label("Züge: 0");
-        lbl_turns.setAlignment(Label.RIGHT);
+        JLabel lbl_turns = new JLabel("Züge: 0");
+        lbl_turns.setHorizontalAlignment(SwingConstants.RIGHT);
         panel_root.add(lbl_turns, BorderLayout.NORTH);
         
         // Spielfläche
-        panel_root.add(new GamePanel(num), BorderLayout.CENTER);
+        panel_root.add(new GamePanel(num, lbl_turns), BorderLayout.CENTER);
         
         
         this.add(panel_root);
