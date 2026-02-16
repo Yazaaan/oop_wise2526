@@ -2,6 +2,6 @@
 
 public class Main{
     public static void main(String[] args){
-        Launcher GameLauncher = new Launcher(4);
+        Launcher GameLauncher = new Launcher(4); //test
     }
 }
