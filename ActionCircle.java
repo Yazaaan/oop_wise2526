@@ -27,6 +27,7 @@ public class ActionCircle extends DrawableObject{
     private boolean isRoot;
     private JLabel lbl_turns;
     private static int turns;
+    private static int numActivated;
 
     public ActionCircle(int x, int y, int r, boolean isRoot, GamePanel panel, JLabel lbl_turns){
         previous = this;
@@ -42,8 +43,21 @@ public class ActionCircle extends DrawableObject{
 
     public void stateSwitch(){
         activated = !activated; // Eigenen Zusantd wechseln
-        if (previous != this) previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
-        if (next != this) next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
+        numActivated += activated? 1 : -1;
+        
+        if (previous != this){
+            previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
+            numActivated += previous.activated? 1 : -1;
+        }
+        if (next != this){
+            next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
+            numActivated += next.activated? 1 : -1;
+        }
+        
+        
+        if(panel.num == numActivated){
+            System.out.println("Gewonnen!");
+        }
     }
 
     public void paint(Graphics g){

@@ -13,7 +13,7 @@ public class GamePanel extends JPanel{
     DrawableObject[] objs = new DrawableObject[100];
     private Ring ring;
     private ActionCircle rootCircle;
-    private int num;
+    public final int num;   // Für alle verfügbar aber nicht manipulierbar
 
     public GamePanel(int num, JLabel lbl_turns)
     {
@@ -25,7 +25,6 @@ public class GamePanel extends JPanel{
         int ringRadius = 150;
         int actionRadius = 20;
         ring = new Ring(250, 250, ringRadius);
-        // Circle rootCircle = new Circle(250 + (int)(150*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), 250 + (int)(150*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), 20);
         rootCircle = new ActionCircle(250, 250-ringRadius, actionRadius, true, this, lbl_turns);
         
         for(int i = 1; i < num; i++){
@@ -35,9 +34,6 @@ public class GamePanel extends JPanel{
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
 
-        //repaint();
-
-
     }
 
     public void paintComponent(Graphics g)
@@ -45,7 +41,7 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
         
         ring.paint(g);
-        
+
         ActionCircle current = rootCircle;
         ActionCircle next;
         for(int i = 0; i < num; i++){
