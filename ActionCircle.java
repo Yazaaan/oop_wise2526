@@ -68,6 +68,10 @@ public class ActionCircle extends DrawableObject{
         g2d.drawOval(x-r, y-r, 2*r, 2*r);
         g2d.setColor(activated? color_active : color_inactive);
         g2d.fillOval(x-r, y-r, 2*r, 2*r);
+        
+        if(!next.isRoot){
+            next.paint(g);
+        }
     }
 
     public void insert(ActionCircle newCircle){

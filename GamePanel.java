@@ -44,15 +44,7 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
         
         ring.paint(g);
-
-        ActionCircle current = rootCircle;
-        ActionCircle next;
-        for(int i = 0; i < num; i++){
-            current.paint(g);
-            next = current;
-            current = current.next;
-        }
-
+        rootCircle.paint(g);
     }
     
     public void gameWon(int turns){
