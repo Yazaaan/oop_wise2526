@@ -39,7 +39,7 @@ public class GameFrame extends JFrame{
         menueDatei.add(menueHelp);
         menueHelp.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    JOptionPane.showMessageDialog(null, "Drücken Sie die Schalter (Kreise) so, dass alle gelb leuchten!\nDurch Drücken auf einen Kreis ändern dieser selber und die beiden Nachbarn ihren Zustand.\nSind sie aus gewesen, sind sie danach an; waren sie an, so sind sie dann aus.", "Hilfe", JOptionPane.QUESTION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Drücken Sie die Schalter (Kreise) so, dass alle grün leuchten!\nDurch Drücken auf einen Kreis ändern dieser selber und die beiden Nachbarn ihren Zustand.\nSind sie aus gewesen, sind sie danach an; waren sie an, so sind sie dann aus.", "Hilfe", JOptionPane.QUESTION_MESSAGE);
                 }
             });
 
