@@ -57,7 +57,7 @@ public class GameFrame extends JFrame{
                         + "Daniel Wilhelm\n"
                         + "Jade Vu\n"
                         + "Yazan Sawalha\n\n"
-                        + "Dieses Projekt ist auch auf GitHub einsehbar!\n"
+                        + "Dieses Projekt ist auch auf GitHub!\n"
                         + "https://github.com/Yazaaan/oop_wise2526";
 
                     JOptionPane.showMessageDialog(
@@ -120,7 +120,7 @@ public class GameFrame extends JFrame{
                 message,
                 "GEWONNEN",
                 JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.INFORMATION_MESSAGE,
                 null,
                 options,
                 options[1]);
