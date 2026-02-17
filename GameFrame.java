@@ -136,7 +136,10 @@ public class GameFrame extends JFrame{
                 options,
                 options[1]);
 
-        if(decision == 0) new Launcher(num);
+        if(decision == 1) System.exit(0);
+        
+        // Wird nich ausgeführt, wenn Programm beendet wird
+        new Launcher(num);
         dispose();
     }
 }
