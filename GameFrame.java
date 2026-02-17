@@ -79,6 +79,7 @@ public class GameFrame extends JFrame{
                     );
                 }
             });
+        
         // Beenden Eintrag
         JMenuItem menueBeenden = new JMenuItem("Beenden");
         menueDatei.add(menueBeenden);

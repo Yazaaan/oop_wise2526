@@ -93,19 +93,21 @@ public class ActionCircle extends Circle{
         // Status für DIESEN Kreis setzen
         isCurrentlyOver = (distance < r + strokeWidth / 2);
 
-        // Nur repainten, wenn sich der Status tatsächlich geändert hat (Performance)
+        // Nur repainten, wenn sich der Hower-Status tatsächlich geändert hat (Performance)
         if (mouseHover != isCurrentlyOver) {
             mouseHover = isCurrentlyOver;
             panel.repaint();
+            return;
         }
 
         // Klick-Logik ausführen
         if (isCurrentlyOver && click) {
             stateSwitch();
             panel.repaint();
+            return;
         }
         
-        // Den Aufruf an den nächsten Kreis weitergeben
+        // Den Aufruf an den nächsten Kreis weitergeben (Passiert nur, wenn der Kreis selbst nichts damit anfangen kann)
         if (!next.isRoot) {
             next.checkPos(mouseX, mouseY, click);
         }

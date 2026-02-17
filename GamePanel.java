@@ -37,7 +37,7 @@ public class GamePanel extends JPanel{
         rootCircle = new ActionCircle(centerX, centerY-ringRadius, actionRadius, this, lbl_turns);
 
         for(int i = 1; i < num; i++){
-            double rad = i * angleDiffRad - Math.PI / 2;    // Start bei der Spitze des Kreises (-π/2)
+            double rad = i * angleDiffRad - Math.PI / 2;    // Start oben im Kreis (-π/2)
             int x = centerX + (int) Math.round(ringRadius * Math.cos(rad));
             int y = centerY + (int) Math.round(ringRadius * Math.sin(rad));
             rootCircle.insert(new ActionCircle(x, y, actionRadius, this, lbl_turns));
