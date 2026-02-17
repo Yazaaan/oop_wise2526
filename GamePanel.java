@@ -27,10 +27,10 @@ public class GamePanel extends JPanel{
         // Winkel zwischen zwei Kreisen in Radiant
         double angleDiffRad = 2 * Math.PI / num;   // 360° → 2π
 
-        int ringRadius = 150;
+        int ringRadius = 160;
         int actionRadius = 20;
         int centerX = 250;
-        int centerY = 220;
+        int centerY = 210;
 
         ring = new Ring(centerX, centerY, ringRadius);
         ActionCircle.reset();

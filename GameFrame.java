@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridLayout;
@@ -92,11 +92,20 @@ public class GameFrame extends JFrame{
         // Panel beschreiben und Elemente einfügen
         JPanel panel_root = new JPanel();
         panel_root.setLayout(new BorderLayout());
-
+        
+        // Obere Zeile
+        JPanel panel_header = new JPanel();
+        panel_header.setLayout(new FlowLayout());
+        panel_root.add(panel_header, BorderLayout.NORTH);
+        
+        // Schalteranzahl Anzeige
+        JLabel lbl_difficulty = new JLabel("Schalter: " + num);
+        lbl_difficulty.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 250));
+        panel_header.add(lbl_difficulty);
+        
         // Zügezähler
         JLabel lbl_turns = new JLabel("Züge: 0");
-        lbl_turns.setHorizontalAlignment(SwingConstants.RIGHT);
-        panel_root.add(lbl_turns, BorderLayout.NORTH);
+        panel_header.add(lbl_turns);
 
         // Spielfläche
         GamePanel game_panel = new GamePanel(num, this, lbl_turns);
