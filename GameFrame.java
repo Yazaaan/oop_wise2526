@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 public class GameFrame extends JFrame{
     public GameFrame(int num){
         // Fenstereigenschaften
-        setTitle("Kreisspiel - trial version");
+        setTitle("Kreisspiel - unregistered trial version");
         setSize(500, 500);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
