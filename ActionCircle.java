@@ -9,10 +9,8 @@ import javax.swing.JLabel;
 // Die Klasse die einen Kreis beschreibt
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
 
-public class ActionCircle extends DrawableObject{
+public class ActionCircle extends Circle{
     private ActionCircle previous, next;
-    private int x, y, r;
-    private int strokeWidth = 10;
     private boolean activated;
     private Color color_active = new Color(111, 220, 17);
     private Color color_inactive = new Color(127, 17, 220);
@@ -40,6 +38,7 @@ public class ActionCircle extends DrawableObject{
         this.r = r;
         this.panel = panel;
         this.lbl_turns = lbl_turns;
+        
         if(!rootExsists){
             rootExsists = true;
             isRoot = true;

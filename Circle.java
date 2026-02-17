@@ -6,10 +6,7 @@ import java.awt.BasicStroke;
 // Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
 
 public abstract class Circle extends DrawableObject{
-    private int x, y, r;
-    private int strokeWidth;
-    private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
-    private GamePanel panel;
+    protected int x, y, r, strokeWidth = 8;
 
     abstract public void paint(Graphics g);
 }
