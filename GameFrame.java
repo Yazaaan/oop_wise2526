@@ -80,10 +80,11 @@ public class GameFrame extends JFrame{
     }
 
     public void gameWonDialog(int num, int turns){
-
+        int minimumTurns = (num % 3 == 0)? num/3 : num;
+        
         Object[] options = {"Neues Spiel", "Beenden"};
         int decision = JOptionPane.showOptionDialog(this,
-                String.format("Sie haben in %s Zügen gewonnen!\n\nWollen Sie ein neues Spiel starten?", turns),
+                String.format("Sie haben in %s Zügen gewonnen!\nTipp: Das bestmögliche ist %s.\n\nWollen Sie ein neues Spiel starten?", turns, minimumTurns),
                 "GEWONNEN",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
