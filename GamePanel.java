@@ -20,24 +20,31 @@ public class GamePanel extends JPanel{
     {
         this.num = num;
         this.frame = frame;
-        
+
         // Aufbau Spielfeld
-        int angleDiff = 360/num;
+        // int angleDiff = 360/num;
+        // Winkel zwischen zwei Kreisen in Radiant
+        double angleDiffRad = 2 * Math.PI / num;   // 360° → 2π
 
         int ringRadius = 150;
         int actionRadius = 20;
-        
+
         int centerX = 250;
         int centerY = 220;
-        
+
         ring = new Ring(centerX, centerY, ringRadius);
         ActionCircle.reset();
         rootCircle = new ActionCircle(centerX, centerY-ringRadius, actionRadius, this, lbl_turns);
-        
+
         for(int i = 1; i < num; i++){
-            rootCircle.insert(new ActionCircle(centerX + (int)(ringRadius*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), centerY + (int)(ringRadius*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, this, lbl_turns));
+            double rad = i * angleDiffRad - Math.PI / 2;    // Start bei der Spitze des Kreises (-π/2)
+            int x = centerX + (int) Math.round(ringRadius * Math.cos(rad));
+            int y = centerY + (int) Math.round(ringRadius * Math.sin(rad));
+            rootCircle.insert(new ActionCircle(x, y, actionRadius, this, lbl_turns));
+
+            // rootCircle.insert(new ActionCircle(centerX + (int)(ringRadius*Math.cos(Math.toRadians(i*angleDiff)-Math.PI/2)), centerY + (int)(ringRadius*Math.sin(Math.toRadians(i*angleDiff)-Math.PI/2)), actionRadius, this, lbl_turns));
         }
-        
+
         MouseAdapter mouse = new MouseAdapter(rootCircle);
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
@@ -46,11 +53,11 @@ public class GamePanel extends JPanel{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
+
         ring.paint(g);
         rootCircle.paint(g);
     }
-    
+
     public void gameWon(int turns){
         repaint();
         frame.gameWonDialog(num, turns);
