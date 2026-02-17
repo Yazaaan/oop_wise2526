@@ -16,6 +16,11 @@ import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Label;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class GameFrame extends JFrame{
     public GameFrame(int num){
@@ -53,6 +58,26 @@ public class GameFrame extends JFrame{
                 }
             });
 
+        // Credits Eintrag
+        JMenuItem menueCredits = new JMenuItem("Über");
+        menueDatei.add(menueCredits);
+        menueCredits.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    String message = "Folgende Personen waren an dem OOP-Projekt beteiligt:\n\n"
+                        + "Daniel Wilhelm\n"
+                        + "Jade Vu\n"
+                        + "Yazan Sawalha\n\n"
+                        + "Dieses Projekt ist auch auf GitHub einsehbar!\n"
+                        + "https://github.com/Yazaaan/oop_wise2526";
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        message,
+                        "Über dieses Projekt", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            });
         // Beenden Eintrag
         JMenuItem menueBeenden = new JMenuItem("Beenden");
         menueDatei.add(menueBeenden);
@@ -81,10 +106,18 @@ public class GameFrame extends JFrame{
 
     public void gameWonDialog(int num, int turns){
         int minimumTurns = (num % 3 == 0)? num/3 : num;
-        
+
         Object[] options = {"Neues Spiel", "Beenden"};
-        int decision = JOptionPane.showOptionDialog(this,
-                String.format("Sie haben in %s Zügen gewonnen!\nTipp: Das bestmögliche ist %s.\n\nWollen Sie ein neues Spiel starten?", turns, minimumTurns),
+        
+        String message = String.format(
+                          "Sie haben in %s Zügen gewonnen!\n"
+                        + "Tipp: Das bestmögliche ist %s.\n\n"
+                        + "Wollen Sie ein neues Spiel starten?",
+                        turns, minimumTurns);
+                        
+        int decision = JOptionPane.showOptionDialog(
+                this,
+                message,
                 "GEWONNEN",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
