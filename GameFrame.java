@@ -63,7 +63,8 @@ public class GameFrame extends JFrame{
         menueDatei.add(menueCredits);
         menueCredits.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    String message = "Folgende Personen waren an dem OOP-Projekt beteiligt:\n\n"
+                    String message =
+                          "Folgende Personen waren an dem OOP-Projekt bei Prof. Dr. Vendl beteiligt:\n\n"
                         + "Daniel Wilhelm\n"
                         + "Jade Vu\n"
                         + "Yazan Sawalha\n\n"
@@ -73,7 +74,7 @@ public class GameFrame extends JFrame{
                     JOptionPane.showMessageDialog(
                         null,
                         message,
-                        "Über dieses Projekt", 
+                        "Über dieses Spiel", 
                         JOptionPane.INFORMATION_MESSAGE
                     );
                 }
@@ -125,11 +126,7 @@ public class GameFrame extends JFrame{
                 options,
                 options[1]);
 
-        switch (decision){
-            case 0:
-                Launcher GameLauncher = new Launcher(num); //Ohne Break, damit GameFrame auch geschlossen wird
-            default:
-                dispose();
-        }
+        if(decision == 0) new Launcher(num);
+        dispose();
     }
 }
