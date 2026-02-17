@@ -2,9 +2,6 @@ import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
 import javax.swing.BorderFactory;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SpinnerModel;
@@ -12,10 +9,6 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Label;
 
 public class Launcher extends JFrame{
     public Launcher(int defaultValue){
@@ -29,7 +22,7 @@ public class Launcher extends JFrame{
         // Zahleneingabe mit JSpinner
         SpinnerModel spinnerModel = new SpinnerNumberModel(5, 4, 20, 1);    // SpinnerModel: Startwert, Minimum, Maximum, Schrittweite
         JSpinner num_difficulty = new JSpinner(spinnerModel);
-        num_difficulty.setValue(new Integer(defaultValue));
+        num_difficulty.setValue(defaultValue);
 
         // "Neues Spiel" Button
         JButton btn_newGame = new JButton("Neues Spiel starten");
@@ -37,7 +30,7 @@ public class Launcher extends JFrame{
                 public void actionPerformed(ActionEvent e){
                     System.out.println("Neues Spiel mit " + num_difficulty.getValue() + " Schaltern wird gestartet...");
 
-                    GameFrame game = new GameFrame((int)num_difficulty.getValue());
+                    new GameFrame((int)num_difficulty.getValue());
 
                     dispose();
                 }

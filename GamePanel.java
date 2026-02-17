@@ -1,12 +1,5 @@
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-//import java.awt.Label;
-import java.awt.geom.Ellipse2D;
-import java.awt.Color;
-import java.awt.BasicStroke;
-
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.lang.Math;
 

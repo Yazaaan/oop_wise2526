@@ -1,9 +1,8 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
-import static java.lang.Math.*;
+import java.lang.Math.*;
 import javax.swing.JLabel;
 
 // Die Klasse die einen Kreis beschreibt
