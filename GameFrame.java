@@ -111,7 +111,7 @@ public class GameFrame extends JFrame{
         
         String message = String.format(
                           "Sie haben in %s Zügen gewonnen!\n"
-                        + "Tipp: Das bestmögliche ist %s.\n\n"
+                        + "Tipp: Das bestmögliche sind %s Züge.\n\n"
                         + "Wollen Sie ein neues Spiel starten?",
                         turns, minimumTurns);
                         
