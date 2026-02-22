@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>OOP Projekt - Präsentation</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+    <style>
+        .reveal h1,
+        .reveal h2,
+        .reveal h3 {
+            text-transform: none !important;
+            text-align: left;
+        }
+
+        .reveal p,
+        .reveal li {
+            font-size: 0.8em;
+        }
+
+        .custom-grid-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .left-column {
+            width: 50%;
+            text-align: left;
+        }
+
+        .right-column {
+            width: 45%;
+            text-align: right;
+        }
+
+        pre code {
+            font-size: 0.6em !important;
+            line-height: 1.2 !important;
+        }
+
+        .reveal .slides section {
+            height: 100%;
+            width: 100%;
+        }
+
+        .absolute-grid {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-align {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .right-align {
+            text-align: right;
+            align-items: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <div class="absolute-grid left-align" style="top: 5%; left: 5%; width: 100%; height: 20%;">
+                    <h1 style="margin: 0;">OOP-Projekt</h1>
+                    <h2 style="margin: 0;">WiSe 25/26</h2>
+                    <p style="margin-top: 10px; line-height: 1.2;">
+                        <br>
+                        Daniel Wilhelm<br>
+                        Jade Vu<br>
+                        Yazan Sawalha
+                    </p>
+                </div>
+
+                <div class="absolute-grid right-align" style="bottom: 5%; right: 5%; width: 70%; height: 70%;">
+                    <img src="assets/Screenshot_Spiel.png" alt=""
+                        style="max-height: 100%; width: auto; object-fit: contain; display: block;">
+                </div>
+            </section>
+
+            <section>
+                <h2>Aufbau</h2>
+                <img src="assets/Programmaufbau.svg" alt=""
+                    style="width: 100%; max-width: none; max-height: none; height: auto;">
+            </section>
+
+            <section>
+                <section>
+                    <h2>Die Schalter</h2>
+                    <pre><code class="language-java" data-line-numbers="12|13|33-46|79-84|74-75|66-77|71-72|86-106|85-107|48-64|99|94, 100, 103-105">
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.BasicStroke;
+import java.lang.Math.*;
+import javax.swing.JLabel;
+
+// Die Klasse die einen Kreis beschreibt
+// Orientiert sich an der Funktion der Datenstruktur der doppelt verketteten Liste
+
+public class ActionCircle extends Circle{
+    private ActionCircle previous, next;
+    private boolean activated;
+    private Color color_active = new Color(111, 220, 17);
+    private Color color_inactive = new Color(127, 17, 220);
+    private BasicStroke stroke_dashed = new BasicStroke(
+            strokeWidth,
+            BasicStroke.CAP_BUTT,
+            BasicStroke.JOIN_MITER,
+            10.0f, new float[]{10, 7}, 0.0f
+        );
+    private BasicStroke stroke_solid = new BasicStroke(strokeWidth);
+    private GamePanel panel;
+    private boolean isRoot;
+    private JLabel lbl_turns;
+    private static boolean rootExsists;
+    private static int turns;
+    private static int numActivated;
+    private boolean mouseHover;
+    private boolean isCurrentlyOver;
+
+    public ActionCircle(int x, int y, int r, GamePanel panel, JLabel lbl_turns){
+        previous = this;
+        next = this;
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.panel = panel;
+        this.lbl_turns = lbl_turns;
+        
+        if(!rootExsists){
+            rootExsists = true;
+            isRoot = true;
+        }
+    }
+
+    public void stateSwitch(){
+        lbl_turns.setText("Züge: " + ++turns);
+        activated = !activated; // Eigenen Zusantd wechseln
+        numActivated += activated? 1 : -1;
+        
+        previous.activated = !previous.activated;   // Zustand des vorherigen Knoten ändern
+        numActivated += previous.activated? 1 : -1;
+        
+        next.activated = !next.activated;   // Zustand des nachfolgenden Knoten ändern
+        numActivated += next.activated? 1 : -1;
+
+        if(panel.num == numActivated){
+            mouseHover = false;
+            System.out.println("Gewonnen!");
+            panel.gameWon(turns);
+        }
+    }
+
+    public void paint(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(mouseHover? stroke_dashed : stroke_solid);
+        g2d.setColor(Color.BLACK);
+        g2d.drawOval(x-r, y-r, 2*r, 2*r);
+        g2d.setColor(activated? color_active : color_inactive);
+        g2d.fillOval(x-r, y-r, 2*r, 2*r);
+
+        if(!next.isRoot){
+            next.paint(g);
+        }
+    }
+
+    public void insert(ActionCircle newCircle){
+        newCircle.next = next;
+        next.previous = newCircle;
+        next = newCircle;
+        newCircle.previous = this;
+    }
+
+    public void checkPos(int mouseX, int mouseY, boolean click){
+        double distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
+
+        isCurrentlyOver = (distance < r + strokeWidth / 2);
+		
+        if (mouseHover != isCurrentlyOver) {
+            mouseHover = isCurrentlyOver;
+            panel.repaint();
+            return;
+        }
+
+        if (isCurrentlyOver && click) {
+            stateSwitch();
+            panel.repaint();
+            return;
+        }
+        
+        if (!next.isRoot) {
+            next.checkPos(mouseX, mouseY, click);
+        }
+    }
+
+    public static void reset(){
+        rootExsists = false;
+        turns = 0;
+        numActivated = 0;
+    }
+}
+					    </code></pre>
+                </section>
+                <section>
+                    <h2>Gamepanel</h2>
+                    <pre><code class="language-java" data-line-numbers="7|14-41|20|29|38-40|31-36|35">
+import java.awt.Graphics;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.lang.Math;
+
+public class GamePanel extends JPanel{
+    DrawableObject[] objs = new DrawableObject[100];
+    private Ring ring;
+    private ActionCircle rootCircle;
+    public final int num;   // Für alle verfügbar aber nicht manipulierbar
+    private GameFrame frame;
+
+    public GamePanel(int num, GameFrame frame, JLabel lbl_turns)
+    {
+        this.num = num;
+        this.frame = frame;
+
+        // Aufbau Spielfeld
+        double angleDiffRad = 2 * Math.PI / num;   // Winkel zwischen zwei Kreisen in Radiant
+
+        int ringRadius = 160;
+        int actionRadius = 20;
+        int centerX = 250;
+        int centerY = 210;
+
+        ring = new Ring(centerX, centerY, ringRadius);
+        ActionCircle.reset();
+        rootCircle = new ActionCircle(centerX, centerY-ringRadius, actionRadius, this, lbl_turns);
+
+        for(int i = 1; i < num; i++){
+            double rad = i * angleDiffRad - Math.PI / 2;    // Start oben im Kreis (-π/2)
+            int x = centerX + (int) Math.round(ringRadius * Math.cos(rad));
+            int y = centerY + (int) Math.round(ringRadius * Math.sin(rad));
+            rootCircle.insert(new ActionCircle(x, y, actionRadius, this, lbl_turns));
+        }
+
+        MouseAdapter mouse = new MouseAdapter(rootCircle);
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
+    }
+
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
+        ring.paint(g);
+        rootCircle.paint(g);
+    }
+
+    public void gameWon(int turns){
+        repaint();
+        frame.gameWonDialog(num, turns);
+    }
+}
+					    </code></pre>
+                </section>
+                <section>
+                    <h2>Einfügen der Kreise</h2>
+                    <video data-autoplay loop src="assets/circle_insert.mp4" style="width: 80%; max-height: 500px;">
+                    </video>
+                </section>
+
+            </section>
+             <section>
+                <h2>Aufbau</h2>
+                <img src="assets/Programmaufbau.svg" alt=""
+                    style="width: 100%; max-width: none; max-height: none; height: auto;">
+            </section>
+
+        </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            // Wichtig für den Java-Code:
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>
